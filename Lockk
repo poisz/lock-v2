@@ -2,7 +2,7 @@
 local allowedUsernames = {
     ["CelexOnTOP24"] = true,
     ["Hearty_fijian"] = true,
-    ["User3"] = true
+    ["malookanasser"] = true
 }
 
 local function isUserAllowed(username)
