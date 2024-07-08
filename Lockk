@@ -1,4 +1,3 @@
-
 local allowedPlayerIDs = {
     [3040857301] = true,  -- Replace with actual player IDs
     [201066309] = true,
@@ -11,14 +10,15 @@ local function isUserAllowed(playerID)
     return allowedPlayerIDs[playerID] ~= nil
 end
 
--- Script functionality (unchanged from your original script)
+-- Script functionality
 local toggleKey = Enum.KeyCode.V -- Change V to your lock keybind
-local isEnabled = true
+local isEnabled = false
 local predictionFactor = 0.15 -- Adjusted prediction factor for less aggressive locking
 
 local playerService = game:GetService("Players")
 local inputService = game:GetService("UserInputService")
 local renderService = game:GetService("RunService")
+local starterGui = game:GetService("StarterGui")
 local localPlayer = playerService.LocalPlayer
 local mouse = localPlayer:GetMouse()
 local camera = workspace.CurrentCamera
@@ -78,11 +78,33 @@ renderService.RenderStepped:Connect(function()
     end
 end)
 
+-- Display steps
+starterGui:SetCore("SendNotification", {
+    Title = "Poisz lock";
+    Text = "Loading";
+    Duration = 2;
+})
+wait(2)
+
+starterGui:SetCore("SendNotification", {
+    Title = "Poisz lock";
+    Text = "Checking Whitelist";
+    Duration = 2;
+})
+wait(2)
+
 -- Check if the current player is allowed to run the script
 if isUserAllowed(localPlayer.UserId) then
-    print("User is authorized to run the script.")
+    starterGui:SetCore("SendNotification", {
+        Title = "Poisz lock";
+        Text = "Script loaded";
+        Duration = 2;
+    })
+    isEnabled = true
 else
-    warn("Unauthorized user: " .. localPlayer.Name .. " (ID: " .. localPlayer.UserId .. ")")
-    -- Optionally, disable or restrict script functionality for unauthorized users
-    isEnabled = false -- Example of disabling script functionality
+    starterGui:SetCore("SendNotification", {
+        Title = "Poisz lock";
+        Text = "Not whitelisted";
+        Duration = 2;
+    })
 end
