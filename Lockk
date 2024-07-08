@@ -1,16 +1,14 @@
--- Whitelist of authorized usernames
+
 local allowedUsernames = {
     ["CelexOnTOP24"] = true,
     ["Hearty_fijian"] = true,
     ["User3"] = true
 }
 
--- Function to check if the player is in the whitelist
 local function isUserAllowed(username)
     return allowedUsernames[username] ~= nil
 end
 
--- Script functionality
 local toggleKey = Enum.KeyCode.V -- Change V to your lock keybind
 local isEnabled = true
 local predictionFactor = 0.15 -- Adjusted prediction factor for less aggressive locking
