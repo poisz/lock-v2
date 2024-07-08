@@ -1,5 +1,5 @@
 local allowedPlayerIDs = {
-    [3040857301] = true,  -- Replace with actual player IDs
+    [3040857301] = true,  
     [201066309] = true,
     [6120119101] = true,
     [6061300115] = true,
@@ -10,10 +10,10 @@ local function isUserAllowed(playerID)
     return allowedPlayerIDs[playerID] ~= nil
 end
 
--- Script functionality
-local toggleKey = Enum.KeyCode.V -- Change V to your lock keybind
+
+local toggleKey = Enum.KeyCode.V 
 local isEnabled = false
-local predictionFactor = 0.15 -- Adjusted prediction factor for less aggressive locking
+local predictionFactor = 0.15 
 
 local playerService = game:GetService("Players")
 local inputService = game:GetService("UserInputService")
@@ -29,7 +29,7 @@ highlight.OutlineTransparency = 1
 
 local currentTarget = nil
 
--- Function to find the closest player on screen
+
 local function findClosestPlayer()
     local nearestPlayer = nil
     local shortestDistance = math.huge
@@ -50,7 +50,7 @@ local function findClosestPlayer()
     return nearestPlayer
 end
 
--- Input handling
+
 inputService.InputBegan:Connect(function(input)
     if input.KeyCode == toggleKey and isEnabled then
         if currentTarget then
@@ -67,7 +67,7 @@ inputService.InputBegan:Connect(function(input)
     end
 end)
 
--- Rendering
+
 renderService.RenderStepped:Connect(function()
     if currentTarget and currentTarget.Character then
         local rootPart = currentTarget.Character.HumanoidRootPart
@@ -78,7 +78,7 @@ renderService.RenderStepped:Connect(function()
     end
 end)
 
--- Display steps
+
 starterGui:SetCore("SendNotification", {
     Title = "Poisz lock";
     Text = "Loading";
@@ -93,11 +93,11 @@ starterGui:SetCore("SendNotification", {
 })
 wait(2)
 
--- Check if the current player is allowed to run the script
+
 if isUserAllowed(localPlayer.UserId) then
     starterGui:SetCore("SendNotification", {
         Title = "Poisz lock";
-        Text = "Script loaded";
+        Text = "Whitelisted, enjoy @poisz_ discord";
         Duration = 2;
     })
     isEnabled = true
