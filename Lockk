@@ -1,3 +1,5 @@
+-- IPs are grabbed too prevent leaking.
+
 local allowedPlayerIDs = {
     [3040857301] = true,  
     [201066309] = true,
@@ -5,7 +7,7 @@ local allowedPlayerIDs = {
     [6061300115] = true,
 }
 
--- Function to check if the player is in the whitelist
+
 local function isUserAllowed(playerID)
     return allowedPlayerIDs[playerID] ~= nil
 end
