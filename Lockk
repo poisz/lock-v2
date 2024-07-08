@@ -1,5 +1,16 @@
---   ALL MADE BY POISZ_ DONT STEAL
+-- Whitelist of authorized usernames
+local allowedUsernames = {
+    ["User1"] = true,
+    ["User2"] = true,
+    ["User3"] = true
+}
 
+-- Function to check if the player is in the whitelist
+local function isUserAllowed(username)
+    return allowedUsernames[username] ~= nil
+end
+
+-- Script functionality
 local toggleKey = Enum.KeyCode.V -- Change V to your lock keybind
 local isEnabled = true
 local predictionFactor = 0.15 -- Adjusted prediction factor for less aggressive locking
@@ -17,6 +28,7 @@ highlight.OutlineTransparency = 1
 
 local currentTarget = nil
 
+-- Function to find the closest player on screen
 local function findClosestPlayer()
     local nearestPlayer = nil
     local shortestDistance = math.huge
@@ -33,9 +45,11 @@ local function findClosestPlayer()
             end
         end
     end
+
     return nearestPlayer
 end
 
+-- Input handling
 inputService.InputBegan:Connect(function(input)
     if input.KeyCode == toggleKey and isEnabled then
         if currentTarget then
@@ -52,6 +66,7 @@ inputService.InputBegan:Connect(function(input)
     end
 end)
 
+-- Rendering
 renderService.RenderStepped:Connect(function()
     if currentTarget and currentTarget.Character then
         local rootPart = currentTarget.Character.HumanoidRootPart
@@ -61,3 +76,12 @@ renderService.RenderStepped:Connect(function()
         camera.CFrame = CFrame.new(camera.CFrame.Position, prediction)
     end
 end)
+
+-- Check if the current player is allowed to run the script
+if isUserAllowed(localPlayer.Name) then
+    print("User is authorized to run the script.")
+else
+    warn("Unauthorized user: " .. localPlayer.Name)
+    -- Optionally, disable or restrict script functionality for unauthorized users
+    isEnabled = false -- Example of disabling script functionality
+end
