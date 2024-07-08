@@ -1,7 +1,7 @@
 -- Whitelist of authorized usernames
 local allowedUsernames = {
-    ["User1"] = true,
-    ["User2"] = true,
+    ["CelexOnTOP24"] = true,
+    ["Hearty_fijian"] = true,
     ["User3"] = true
 }
 
