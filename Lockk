@@ -1,4 +1,3 @@
-
 local allowedUsernames = {
     ["CelexOnTOP24"] = true,
     ["Hearty_fijian"] = true,
@@ -10,9 +9,9 @@ local function isUserAllowed(username)
     return allowedUsernames[username] ~= nil
 end
 
-local toggleKey = Enum.KeyCode.V -- Change V to your lock keybind
+local toggleKey = Enum.KeyCode.V 
 local isEnabled = true
-local predictionFactor = 0.15 -- Adjusted prediction factor for less aggressive locking
+local predictionFactor = 0.15 
 
 local playerService = game:GetService("Players")
 local inputService = game:GetService("UserInputService")
@@ -26,6 +25,17 @@ highlight.FillTransparency = 0.5
 highlight.OutlineTransparency = 1
 
 local currentTarget = nil
+
+-- Function to update currentTarget to a valid player
+local function updateCurrentTarget()
+    if currentTarget then
+        if not currentTarget.Character or not currentTarget.Character:FindFirstChild("HumanoidRootPart") then
+            currentTarget = nil
+            highlight.Adornee = nil
+            highlight.Parent = nil
+        end
+    end
+end
 
 -- Function to find the closest player on screen
 local function findClosestPlayer()
@@ -67,6 +77,8 @@ end)
 
 -- Rendering
 renderService.RenderStepped:Connect(function()
+    updateCurrentTarget() -- Check and update currentTarget
+
     if currentTarget and currentTarget.Character then
         local rootPart = currentTarget.Character.HumanoidRootPart
         local targetPosition = rootPart.Position
@@ -76,7 +88,7 @@ renderService.RenderStepped:Connect(function()
     end
 end)
 
--- Check if the current player is allowed to run the script
+
 if isUserAllowed(localPlayer.Name) then
     print("User is authorized to run the script.")
 else
