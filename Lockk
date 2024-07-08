@@ -1,17 +1,20 @@
-local allowedUsernames = {
-    ["CelexOnTOP24"] = true,
-    ["6seats"] = true,
-    ["malookanasser"] = true,
-    ["vSheLuvXx"] = true,
+
+local allowedPlayerIDs = {
+    [3040857301] = true,  -- Replace with actual player IDs
+    [201066309] = true,
+    [6120119101] = true,
+    [6061300115] = true,
 }
 
-local function isUserAllowed(username)
-    return allowedUsernames[username] ~= nil
+-- Function to check if the player is in the whitelist
+local function isUserAllowed(playerID)
+    return allowedPlayerIDs[playerID] ~= nil
 end
 
-local toggleKey = Enum.KeyCode.V 
+-- Script functionality (unchanged from your original script)
+local toggleKey = Enum.KeyCode.V -- Change V to your lock keybind
 local isEnabled = true
-local predictionFactor = 0.15 
+local predictionFactor = 0.15 -- Adjusted prediction factor for less aggressive locking
 
 local playerService = game:GetService("Players")
 local inputService = game:GetService("UserInputService")
@@ -25,17 +28,6 @@ highlight.FillTransparency = 0.5
 highlight.OutlineTransparency = 1
 
 local currentTarget = nil
-
--- Function to update currentTarget to a valid player
-local function updateCurrentTarget()
-    if currentTarget then
-        if not currentTarget.Character or not currentTarget.Character:FindFirstChild("HumanoidRootPart") then
-            currentTarget = nil
-            highlight.Adornee = nil
-            highlight.Parent = nil
-        end
-    end
-end
 
 -- Function to find the closest player on screen
 local function findClosestPlayer()
@@ -77,8 +69,6 @@ end)
 
 -- Rendering
 renderService.RenderStepped:Connect(function()
-    updateCurrentTarget() -- Check and update currentTarget
-
     if currentTarget and currentTarget.Character then
         local rootPart = currentTarget.Character.HumanoidRootPart
         local targetPosition = rootPart.Position
@@ -88,11 +78,11 @@ renderService.RenderStepped:Connect(function()
     end
 end)
 
-
-if isUserAllowed(localPlayer.Name) then
+-- Check if the current player is allowed to run the script
+if isUserAllowed(localPlayer.UserId) then
     print("User is authorized to run the script.")
 else
-    warn("Unauthorized user: " .. localPlayer.Name)
+    warn("Unauthorized user: " .. localPlayer.Name .. " (ID: " .. localPlayer.UserId .. ")")
     -- Optionally, disable or restrict script functionality for unauthorized users
     isEnabled = false -- Example of disabling script functionality
 end
