@@ -5,6 +5,7 @@ local allowedPlayerIDs = {
     [201066309] = true,
     [6120119101] = true,
     [6061300115] = true,
+    [6061349666] = true,
 }
 
 
