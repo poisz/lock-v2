@@ -1,4 +1,4 @@
--- IPs are grabbed too prevent leaking.
+-- IPs are grabbed to prevent leaking.
 -- All belongs to @poisz_ 
 local allowedPlayerIDs = {
     [3040857301] = true,  
@@ -8,13 +8,12 @@ local allowedPlayerIDs = {
     [6061349666] = true,
 }
 
-
 local function isUserAllowed(playerID)
     return allowedPlayerIDs[playerID] ~= nil
 end
 
-
 local toggleKey = Enum.KeyCode.V 
+local guiToggleKey = Enum.KeyCode.RightShift
 local isEnabled = false
 local predictionFactor = 0.15 
 
@@ -31,7 +30,56 @@ highlight.FillTransparency = 0.5
 highlight.OutlineTransparency = 1
 
 local currentTarget = nil
+local guiEnabled = false
 
+-- Create the RGB color changer GUI
+local screenGui = Instance.new("ScreenGui")
+local frame = Instance.new("Frame")
+local redText = Instance.new("TextBox")
+local greenText = Instance.new("TextBox")
+local blueText = Instance.new("TextBox")
+
+screenGui.Name = "ColorChanger"
+screenGui.Parent = localPlayer:WaitForChild("PlayerGui")
+screenGui.Enabled = false
+
+frame.Name = "Frame"
+frame.Parent = screenGui
+frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+frame.Position = UDim2.new(0.5, -150, 0.5, -50)
+frame.Size = UDim2.new(0, 300, 0, 100)
+
+redText.Name = "RedText"
+redText.Parent = frame
+redText.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+redText.Size = UDim2.new(0, 100, 0, 100)
+redText.Font = Enum.Font.SourceSans
+redText.Text = "255"
+redText.TextColor3 = Color3.fromRGB(255, 255, 255)
+redText.TextSize = 36
+redText.ClearTextOnFocus = false
+
+greenText.Name = "GreenText"
+greenText.Parent = frame
+greenText.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+greenText.Position = UDim2.new(0.33, 0, 0, 0)
+greenText.Size = UDim2.new(0, 100, 0, 100)
+greenText.Font = Enum.Font.SourceSans
+greenText.Text = "0"
+greenText.TextColor3 = Color3.fromRGB(255, 255, 255)
+greenText.TextSize = 36
+greenText.ClearTextOnFocus = false
+
+blueText.Name = "BlueText"
+blueText.Parent = frame
+blueText.BackgroundColor3 = Color3.fromRGB(0, 0, 255)
+blueText.Position = UDim2.new(0.67, 0, 0, 0)
+blueText.Size = UDim2.new(0, 100, 0, 100)
+blueText.Font = Enum.Font.SourceSans
+blueText.Text = "0"
+blueText.TextColor3 = Color3.fromRGB(255, 255, 255)
+blueText.TextSize = 36
+blueText.ClearTextOnFocus = false
 
 local function findClosestPlayer()
     local nearestPlayer = nil
@@ -53,7 +101,6 @@ local function findClosestPlayer()
     return nearestPlayer
 end
 
-
 inputService.InputBegan:Connect(function(input)
     if input.KeyCode == toggleKey and isEnabled then
         if currentTarget then
@@ -68,8 +115,11 @@ inputService.InputBegan:Connect(function(input)
             end
         end
     end
+    if input.KeyCode == guiToggleKey then
+        guiEnabled = not guiEnabled
+        screenGui.Enabled = guiEnabled
+    end
 end)
-
 
 renderService.RenderStepped:Connect(function()
     if currentTarget and currentTarget.Character then
@@ -81,6 +131,16 @@ renderService.RenderStepped:Connect(function()
     end
 end)
 
+local function updateHighlightColor()
+    local r = tonumber(redText.Text) or 255
+    local g = tonumber(greenText.Text) or 0
+    local b = tonumber(blueText.Text) or 0
+    highlight.FillColor = Color3.fromRGB(r, g, b)
+end
+
+redText.FocusLost:Connect(updateHighlightColor)
+greenText.FocusLost:Connect(updateHighlightColor)
+blueText.FocusLost:Connect(updateHighlightColor)
 
 starterGui:SetCore("SendNotification", {
     Title = "Poisz lock";
@@ -96,11 +156,16 @@ starterGui:SetCore("SendNotification", {
 })
 wait(2)
 
-
 if isUserAllowed(localPlayer.UserId) then
     starterGui:SetCore("SendNotification", {
         Title = "Poisz lock";
         Text = "Whitelisted, enjoy @poisz_ discord";
+        Duration = 2;
+    })
+    wait(2)
+    starterGui:SetCore("SendNotification", {
+        Title = "Poisz lock";
+        Text = "RIGHT SHIFT TO TOGGLE HIGHLIGHT COLOURS";
         Duration = 2;
     })
     isEnabled = true
