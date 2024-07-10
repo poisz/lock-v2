@@ -32,7 +32,7 @@ highlight.OutlineTransparency = 1
 local currentTarget = nil
 local guiEnabled = false
 
--- Create the RGB color changer GUI
+
 local screenGui = Instance.new("ScreenGui")
 local frame = Instance.new("Frame")
 local redText = Instance.new("TextBox")
