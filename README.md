@@ -1,10 +1,15 @@
 Roblox Da Hood Lock Script.
 All made by @poisz_ on discord, all original. 
 
-CHANGE LOGS:
-︱・Fixed Highlight dissapearing on death
-︱・Added whitelist too prevent randoms from accessing script
-︱・Working on UI to change keybinds etc.
-︱・Changed whitelist from Username to ID
-︱・Added notifaction bottom right when ran
-︱・ Added highlight colour change menu (RIGHT SHIFT) 
+UPDATE 1.1:
+
+NEW:
+Character highlight colour menu
+Renamed to MYSTIC V2
+Added whitelist system
+Added notifactions when ran
+Added X Y Z prediction
+
+BUG FIXES:
+Fixed highlight not working upon death
+Fixed others but forgot
