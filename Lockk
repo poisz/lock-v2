@@ -144,14 +144,14 @@ greenText.FocusLost:Connect(updateHighlightColor)
 blueText.FocusLost:Connect(updateHighlightColor)
 
 starterGui:SetCore("SendNotification", {
-    Title = "Poisz lock";
+    Title = "MYSTIC V2";
     Text = "Loading";
     Duration = 2;
 })
 wait(2)
 
 starterGui:SetCore("SendNotification", {
-    Title = "Poisz lock";
+    Title = "MYSTIC V2";
     Text = "Checking Whitelist";
     Duration = 2;
 })
@@ -159,21 +159,21 @@ wait(2)
 
 if isUserAllowed(localPlayer.UserId) then
     starterGui:SetCore("SendNotification", {
-        Title = "Poisz lock";
-        Text = "Whitelisted, enjoy @poisz_ discord";
+        Title = "MYSTIC V2";
+        Text = "Whitelisted";
         Duration = 2;
     })
     wait(2)
     starterGui:SetCore("SendNotification", {
-        Title = "Poisz lock";
-        Text = "RIGHT SHIFT TO TOGGLE HIGHLIGHT COLOURS";
-        Duration = 2;
+        Title = "MYSTIC V2";
+        Text = "RIGHT SHIFT TO TOGGLE HIGHLIGHT COLOURS, V TO TOGGLE LOCK";
+        Duration = 4;
     })
     isEnabled = true
 else
     starterGui:SetCore("SendNotification", {
-        Title = "Poisz lock";
-        Text = "Not whitelisted";
+        Title = "MYSTIC V2";
+        Text = "Not whitelisted, DM @poisz_ too fix.";
         Duration = 2;
     })
 end
