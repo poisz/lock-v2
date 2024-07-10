@@ -7,3 +7,4 @@ CHANGE LOGS:
 ︱・Working on UI to change keybinds etc.
 ︱・Changed whitelist from Username to ID
 ︱・Added notifaction bottom right when ran
+︱・ Added highlight colour change menu (RIGHT SHIFT) 
