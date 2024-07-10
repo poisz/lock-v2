@@ -6,6 +6,7 @@ local allowedPlayerIDs = {
     [6120119101] = true,
     [6061300115] = true,
     [6061349666] = true,
+    [3595271904] = true,
 }
 
 local function isUserAllowed(playerID)
