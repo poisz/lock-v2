@@ -270,13 +270,13 @@ if isUserAllowed(localPlayer.UserId) then
     
     starterGui:SetCore("SendNotification", {
         Title = "MYSTIC V2";
-        Text = "Prediction set based on average ping.";
+        Text = "Prediction based off average ping.";
         Duration = 3;
     })
     
     starterGui:SetCore("SendNotification", {
         Title = "MYSTIC V2";
-        Text = "Your prediction factor is now: " .. tostring(predictionFactor);
+        Text = "Prediction Found: " .. tostring(predictionFactor);
         Duration = 4;
     })
     
