@@ -207,7 +207,7 @@ if isUserAllowed(localPlayer.UserId) then
     
     spawn(pingCheckFunction)
     
-    wait(5)  -- Collect ping data for 5 seconds
+    wait(5)  -- Collect ping data for 5 seconds, might make longer too get a more accurate read
     
     local averagePing = totalPing / pingCount
     
