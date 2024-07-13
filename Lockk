@@ -1,7 +1,7 @@
 -- IPs are grabbed to prevent leaking.
--- All belongs to @poisz_ 
+-- All belongs to @poisz_
 local allowedPlayerIDs = {
-    [3040857301] = true,  
+    [3040857301] = true,
     [201066309] = true,
     [6120119101] = true,
     [6061300115] = true,
@@ -14,10 +14,10 @@ local function isUserAllowed(playerID)
     return allowedPlayerIDs[playerID] ~= nil
 end
 
-local toggleKey = Enum.KeyCode.V 
+local toggleKey = Enum.KeyCode.V
 local guiToggleKey = Enum.KeyCode.RightShift
 local isEnabled = false
-local predictionFactor = 0.15 
+local predictionFactor = 0.15
 
 local playerService = game:GetService("Players")
 local inputService = game:GetService("UserInputService")
@@ -188,14 +188,108 @@ if isUserAllowed(localPlayer.UserId) then
     wait(2)
     starterGui:SetCore("SendNotification", {
         Title = "MYSTIC V2";
+        Text = "Finding Prediction";
+        Duration = 2;
+    })
+    wait(2)
+    
+    -- Get average ping
+    local totalPing = 0
+    local pingCount = 0
+
+    local pingCheckFunction = function()
+        while true do
+            totalPing = totalPing + game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValue()
+            pingCount = pingCount + 1
+            wait(1)
+        end
+    end
+    
+    spawn(pingCheckFunction)
+    
+    wait(5)  -- Collect ping data for 5 seconds
+    
+    local averagePing = totalPing / pingCount
+    
+    -- Set prediction based on average ping
+    if averagePing < 40 then
+        predictionFactor = 0.13232
+    elseif averagePing < 50 then
+        predictionFactor = 0.1245
+    elseif averagePing < 60 then
+        predictionFactor = 0.1248976
+    elseif averagePing < 70 then
+        predictionFactor = 0.129762
+    elseif averagePing < 80 then
+        predictionFactor = 0.134379
+    elseif averagePing < 90 then
+        predictionFactor = 0.136
+    elseif averagePing < 105 then
+        predictionFactor = 0.138
+    elseif averagePing < 110 then
+        predictionFactor = 0.146
+    elseif averagePing < 125 then
+        predictionFactor = 0.149
+    elseif averagePing < 130 then
+        predictionFactor = 0.151
+    elseif averagePing < 140 then
+        predictionFactor = 0.153
+    elseif averagePing < 150 then
+        predictionFactor = 0.156
+    elseif averagePing < 160 then
+        predictionFactor = 0.16
+    elseif averagePing < 170 then
+        predictionFactor = 0.164
+    elseif averagePing < 180 then
+        predictionFactor = 0.168
+    elseif averagePing < 190 then
+        predictionFactor = 0.172
+    elseif averagePing < 200 then
+        predictionFactor = 0.176
+    elseif averagePing < 210 then
+        predictionFactor = 0.18
+    elseif averagePing < 220 then
+        predictionFactor = 0.184
+    elseif averagePing < 230 then
+        predictionFactor = 0.188
+    elseif averagePing < 240 then
+        predictionFactor = 0.192
+    elseif averagePing < 250 then
+        predictionFactor = 0.196
+    elseif averagePing < 260 then
+        predictionFactor = 0.2
+    elseif averagePing < 270 then
+        predictionFactor = 0.204
+    elseif averagePing < 280 then
+        predictionFactor = 0.208
+    elseif averagePing < 290 then
+        predictionFactor = 0.212
+    else
+        predictionFactor = 0.216
+    end
+    
+    starterGui:SetCore("SendNotification", {
+        Title = "MYSTIC V2";
+        Text = "Prediction set based on average ping.";
+        Duration = 3;
+    })
+    
+    starterGui:SetCore("SendNotification", {
+        Title = "MYSTIC V2";
+        Text = "Your prediction factor is now: " .. tostring(predictionFactor);
+        Duration = 4;
+    })
+    
+    isEnabled = true
+    starterGui:SetCore("SendNotification", {
+        Title = "MYSTIC V2";
         Text = "RIGHT SHIFT TO TOGGLE HIGHLIGHT COLOURS, V TO TOGGLE LOCK";
         Duration = 4;
     })
-    isEnabled = true
 else
     starterGui:SetCore("SendNotification", {
         Title = "MYSTIC V2";
-        Text = "Not whitelisted, DM @poisz_ too fix.";
+        Text = "Not whitelisted, DM @poisz_ to fix.";
         Duration = 2;
     })
 end
