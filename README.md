@@ -1,15 +1,15 @@
 Roblox Da Hood Lock Script.
 All made by @poisz_ on discord, all original. 
 
-UPDATE 1.1:
+UPDATE 1.2:
 
 NEW:
-Character highlight colour menu
-Renamed to MYSTIC V2
-Added whitelist system
-Added notifactions when ran
-Added X Y Z prediction
+Added auto read ping average too find prediction
 
 BUG FIXES:
-Fixed highlight not working upon death
-Fixed others but forgot
+Just some little things
+
+WORKING ON:
+Fixing colour gui not working upon respawn
+Colour GUI Preview
+Colour GUI appearing before whitelist confirmed
